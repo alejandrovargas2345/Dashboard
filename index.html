@@ -1,0 +1,578 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sidebar</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
+
+
+    <link href="https://cdn.jsdelivr.net/npm/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
+
+
+    <style>
+        body {
+            display: flex;
+            margin: 0;
+            font-family: Arial, sans-serif;
+        }
+
+        .sidebar {
+            width: 250px;
+            height: 100vh;
+            background-color: #2c3e50;
+            position: fixed;
+            top: 0;
+            left: 0;
+            padding-top: 20px;
+            color: white;
+            overflow-y: auto;
+            transition: width 0.3s ease;
+        }
+
+        .sidebar.collapsed {
+            width: 60px;
+        }
+
+        .sidebar h2 {
+            text-align: center;
+            margin-bottom: 20px;
+            transition: opacity 0.3s ease;
+        }
+
+        .sidebar.collapsed h2 {
+            opacity: 0;
+            visibility: hidden;
+        }
+
+        .sidebar ul {
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .sidebar ul li {
+            padding: 15px 20px;
+            text-align: left;
+            cursor: pointer;
+            transition: background-color 0.3s, padding-left 0.3s ease;
+            position: relative;
+            display: flex;
+            align-items: center;
+        }
+
+        .sidebar ul li:hover {
+            background-color: #345270;
+        }
+
+        .sidebar ul li i {
+            margin-right: 15px;
+            font-size: 1.2em;
+            transition: margin-right 0.3s ease;
+        }
+
+        .sidebar.collapsed ul li i {
+            margin-right: 0;
+        }
+
+        .sidebar ul li span {
+            transition: opacity 0.3s ease, visibility 0.3s ease;
+        }
+
+        .sidebar.collapsed ul li span {
+            opacity: 0;
+            visibility: hidden;
+        }
+
+        .toggle-button {
+            position: fixed;
+            top: 20px;
+            left: 250px;
+            background-color: #2c3e50;
+            color: white;
+            border: none;
+            width: 30px;
+            height: 30px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            z-index: 1000;
+            transition: left 0.3s ease;
+        }
+
+        .sidebar.collapsed + .toggle-button {
+            left: 60px;
+        }
+
+        .content {
+            margin-left: 250px;
+            padding: 20px;
+            flex-grow: 1;
+            background-color: #ecf0f1;
+            height: 100vh;
+            transition: margin-left 0.3s ease;
+        }
+
+        .sidebar.collapsed ~ .content {
+            margin-left: 60px;
+        }
+    </style>
+</head>
+<body>
+    <div class="sidebar">
+        <h2>Empresa XYZ</h2>
+        <ul>
+            <li><i class="fa fa-home"></i> <span>Dashboard</span></li>
+            <li><i class="fa fa-users"></i> <span>Clientes</span></li>
+            <li><i class="fa fa-credit-card"></i> <span>Pagos</span></li>
+            <li><i class="fa fa-file-invoice"></i> <span>Facturas</span></li>
+            <li><i class="fa fa-chart-line"></i> <span>Ventas</span></li>
+            <li><i class="fa fa-box"></i> <span>Productos</span></li>
+            <li><i class="fa fa-cogs"></i> <span>Configuración</span></li>
+            <li><i class="fa fa-bell"></i> <span>Notificaciones</span></li>
+            <li><i class="fa fa-ellipsis-h"></i> <span>Más</span></li>
+        </ul>
+    </div>
+    <button class="toggle-button" onclick="toggleSidebar()">
+        <i class="fa fa-angle-left"></i>
+    </button>
+   
+    <div class="dashboard-main">
+        <!-- Header -->
+        <header class="dashboard-header">
+            <h1>Dashboard</h1>
+            <div class="user-info">
+                <img src="WhatsApp Image 2024-12-19 at 23.18.17.jpeg" alt="User Avatar" class="user-avatar">
+                <span class="user-name">Alejandro</span>
+            </div>
+        </header>
+    
+        <!-- Main Content -->
+        <main class="dashboard-content">
+            <!-- Top Widgets -->
+            <section class="top-widgets">
+                <div class="widget">
+                    <h3>Clientes</h3>
+                    <p>1,254</p>
+                </div>
+                <div class="widget">
+                    <h3>Ventas</h3>
+                    <p>$45,230</p>
+                </div>
+                <div class="widget">
+                    <h3>Productos</h3>
+                    <p>342</p>
+                </div>
+                <div class="widget">
+                    <h3>Facturas</h3>
+                    <p>128</p>
+                </div>
+            </section>
+    
+            <!-- Detailed Sections -->
+            <section class="detailed-sections">
+                <!-- User Profile Section -->
+                <div class="profile-section">
+                    <div class="profile-header">
+                        <img src="WhatsApp Image 2024-12-19 at 23.18.17.jpeg" alt="User Profile" class="profile-avatar">
+                        <div>
+                            <h3>Alejandro</h3>
+                            <p>Administrador</p>
+                        </div>
+                    </div>
+                    <button class="view-profile-btn">Ver Perfil Completo</button>
+                </div>
+    
+                <!-- Quick Actions Section -->
+                <div class="quick-actions">
+                    <h3>Acciones Rápidas</h3>
+                    <ul>
+                        <li><button>Registrar Cliente</button></li>
+                        <li><button>Crear Factura</button></li>
+                        <li><button>Actualizar Inventario</button></li>
+                    </ul>
+                </div>
+            </section>
+    
+            <!-- Graphs and Lists -->
+            <section class="graphs-lists">
+                <!-- Sales Graph -->
+                <div class="graph-card">
+                    <h3>Gráfico de Ventas</h3>
+                    <canvas id="salesChart"></canvas>
+                </div>
+    
+              <!-- Notifications List -->
+<div class="notifications-card">
+    <h3>Notificaciones</h3>
+    <ul>
+        <li>
+            <span class="icon"><i class="bx bxs-bell"></i></span>
+            <span class="text">
+                Nuevo cliente registrado 
+                <span class="time">Hace 2 horas</span>
+            </span>
+        </li>
+        <li>
+            <span class="icon"><i class="bx bxs-box"></i></span>
+            <span class="text">
+                Producto añadido al inventario 
+                <span class="time">Hace 1 día</span>
+            </span>
+        </li>
+        <li>
+            <span class="icon"><i class="bx bxs-credit-card"></i></span>
+            <span class="text">
+                Pago recibido de $150 
+                <span class="time">Hace 30 minutos</span>
+            </span>
+        </li>
+        <li>
+            <span class="icon"><i class="bx bxs-check-circle"></i></span>
+            <span class="text">
+                Pedido #456 completado 
+                <span class="time">Hace 3 días</span>
+            </span>
+        </li>
+    </ul>
+</div>
+
+
+            </section>
+        </main>
+    </div>
+    
+    <style>
+    body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        background-color: #f5f6fa;
+        color: #333;
+    }
+    
+    .dashboard-main {
+        margin-left: 250px;
+        padding: 20px;
+        width: calc(100% - 250px);
+    }
+    
+    .dashboard-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        background-color: #fff;
+        padding: 15px 20px;
+        border-radius: 8px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        margin-bottom: 20px;
+    }
+    
+    .user-info {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+    
+    .user-avatar {
+        border-radius: 50%;
+        width: 40px;
+        height: 40px;
+    }
+    
+    .dashboard-content {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+    }
+    
+    .top-widgets {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 20px;
+    }
+    
+    .widget {
+        background-color: #fff;
+        padding: 15px;
+        border-radius: 8px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        text-align: center;
+    }
+    
+    .widget h3 {
+        font-size: 18px;
+        margin-bottom: 10px;
+    }
+    
+    .widget p {
+        font-size: 24px;
+        font-weight: bold;
+        color: #3498db;
+    }
+    
+    .detailed-sections {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 20px;
+    }
+    
+    .profile-section {
+        background-color: #fff;
+        padding: 15px;
+        border-radius: 8px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+    
+    .profile-header {
+        display: flex;
+        align-items: center;
+        gap: 15px;
+        margin-bottom: 10px;
+    }
+    
+    .profile-avatar {
+        width: 60px;
+        height: 60px;
+        border-radius: 50%;
+    }
+    
+    .view-profile-btn {
+        background-color: #004a7b;
+        color: #fff;
+        border: none;
+        padding: 10px;
+        border-radius: 5px;
+        cursor: pointer;
+        width: 100%;
+        border-radius: 45px;
+
+    }
+    .view-profile-btn:hover{
+        background-color: #003c7c;
+       
+
+
+
+    }
+    .quick-actions ul {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+    }
+    
+    .quick-actions li {
+        margin-bottom: 10px;
+    }
+    
+    .quick-actions button {
+        width: 100%;
+        padding: 10px;
+        border: none;
+        background-color: #203c5a;
+        color: white;
+        border-radius: 5px;
+        cursor: pointer;
+        border-radius: 45px;
+    }
+    .quick-actions button:hover{
+        background-color: #001225;
+        
+    }
+    .graphs-lists {
+        display: grid;
+        grid-template-columns: 2fr 1fr;
+        gap: 20px;
+    }
+    
+    .graph-card,
+    .notifications-card {
+    background-color: #f8f9fa; /* Fondo claro */
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 6px 10px rgba(0, 0, 0, 0.1);
+    font-family: 'Arial', sans-serif;
+    color: #333;
+}
+
+.notifications-card h3 {
+    margin-bottom: 15px;
+    font-size: 1.5rem;
+    color: #001225; /* Título oscuro */
+}
+
+.notifications-card ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.notifications-card li {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 15px;
+    padding: 10px;
+    border-radius: 8px;
+    background: #fff; /* Fondo blanco para cada notificación */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05); /* Sombra ligera */
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.notifications-card li:hover {
+    transform: translateY(-5px); /* Animación al pasar el ratón */
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+}
+
+.icon {
+    font-size: 24px;
+    color: #007bff; /* Color principal para los iconos */
+}
+
+.text {
+    flex: 1;
+}
+
+.text .time {
+    display: block;
+    font-size: 0.9rem;
+    color: #666;
+    margin-top: 4px;
+}
+
+    </style>
+
+
+
+
+
+
+
+
+
+
+
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+        background-color: #f4f4f4;
+    }
+    .container {
+        width: 90%;
+        margin: auto;
+        margin-top: 30px;
+    }
+    h1 {
+        text-align: center;
+        color: #333;
+    }
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        background: white;
+        box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.1);
+    }
+    table thead {
+        background-color: #333;
+        color: white;
+    }
+    table th, table td {
+        padding: 12px;
+        text-align: left;
+        border: 1px solid #ddd;
+    }
+    table tr:hover {
+        background-color: #f1f1f1;
+    }
+    .action-buttons {
+        display: flex;
+        gap: 10px;
+    }
+    .btn {
+        padding: 6px 12px;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        font-size: 14px;
+        color: white;
+    }
+    .btn-edit {
+        background-color: #007bff;
+    }
+    .btn-delete {
+        background-color: #dc3545;
+    }
+    .btn-view {
+        background-color: #28a745;
+    }
+</style>
+
+
+<style>
+
+/* Estilo para el scroll personalizado */
+body {
+  scrollbar-width: thin; /* Para navegadores como Firefox */
+  scrollbar-color: #001225 transparent; /* Color del scroll y del fondo */
+}
+
+/* Para navegadores basados en WebKit (Chrome, Edge, Opera, Safari) */
+body::-webkit-scrollbar {
+  width: 10px; /* Ancho del scroll */
+}
+
+body::-webkit-scrollbar-thumb {
+  background-color: #001225; /* Color del scroll */
+  border-radius: 50%; /* Bordes redondeados */
+  border: 2px solid transparent; /* Espacio adicional para el borde */
+  background-clip: padding-box; /* Clip del borde */
+}
+
+body::-webkit-scrollbar-track {
+  background: transparent; /* Fondo del track (opcional) */
+}
+
+
+</style>
+
+    
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        const ctx = document.getElementById('salesChart').getContext('2d');
+        new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: ['Enero', 'Febrero', 'Marzo', 'Abril'],
+                datasets: [{
+                    label: 'Ventas',
+                    data: [12000, 15000, 10000, 20000],
+                    borderColor: '#3498db',
+                    tension: 0.4
+                }]
+            },
+            options: {
+                responsive: true
+            }
+        });
+    </script>
+    
+    <script>
+        function toggleSidebar() {
+            const sidebar = document.querySelector('.sidebar');
+            const toggleButton = document.querySelector('.toggle-button');
+            sidebar.classList.toggle('collapsed');
+            const icon = toggleButton.querySelector('i');
+            if (sidebar.classList.contains('collapsed')) {
+                icon.classList.remove('fa-angle-left');
+                icon.classList.add('fa-angle-right');
+            } else {
+                icon.classList.remove('fa-angle-right');
+                icon.classList.add('fa-angle-left');
+            }
+        }
+    </script>
+</body>
+</html>
+
